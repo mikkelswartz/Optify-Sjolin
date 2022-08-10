@@ -128,7 +128,7 @@ if st.button("Run"):
         #total_orders_line = driver.find_element(by=By.XPATH, value = '/html/body/div[1]/div/main/div/div/div[2]/div[2]/div[3]/nav/p').text
         total_orders_line = driver.find_element(by=By.CLASS_NAME, value = 'VuePagination__count VuePagination__count text-center col-md-12').text
 
-        
+        st.write("totale ordre: ", total_orders_line)
         
         total_orders = int(total_orders_line.split(' ')[-2].replace(',',''))
 
