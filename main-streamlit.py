@@ -84,7 +84,7 @@ if __name__ == "__main__":
             #         driver.quit()
             #         print("driver quit: page " + str(driver.current_url) + "to slow to load.")
             # open URL
-            driver.get(URL)
+            driver.get(url)
             time.sleep(5)
             st.write(driver.current_url)
 
