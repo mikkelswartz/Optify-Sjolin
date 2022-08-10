@@ -98,10 +98,10 @@ if __name__ == "__main__":
             
             # relocate to orders when page is loaded
             #wait_for_loading(driver, "sidebar-nav")
-            WebDriverWait(driver, 10).until(lambda x: x.find_element(by=By.CLASS_NAME, value="sidebar-nav"))
+            #WebDriverWait(driver, 10).until(lambda x: x.find_element(by=By.CLASS_NAME, value="sidebar-nav"))
             #driver.implicitly_wait(timer)
             time.sleep(5)
-            driver.get(url+"/orders")
+            driver.get("www.google.com")
             time.sleep(5)
             st.write(driver.current_url)
 
