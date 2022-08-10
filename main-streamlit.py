@@ -85,15 +85,18 @@ if __name__ == "__main__":
             #         print("driver quit: page " + str(driver.current_url) + "to slow to load.")
             # open URL
             driver.get(url)
+            time.sleep(5)
             st.write(driver.current_url)
 
             st.write(driver.title)
 
             # type ind email and password to login
             #driver.find_element_by_name('username').send_keys(email)
-            test = driver.find_element(by=By.NAME, value = 'username')
-            test.send_keys(email)
-            st.write('username: ', test.text)
+            input_username = driver.find_element(by=By.NAME, value = 'username')
+            input_username.clear()
+            input_username.send_keys(email)
+
+            
             #driver.find_element_by_name('password').send_keys(password + Keys.ENTER)
             driver.find_element(by=By.NAME, value = 'password').send_keys(password + Keys.ENTER)
 
@@ -102,6 +105,7 @@ if __name__ == "__main__":
             #WebDriverWait(driver, 10).until(lambda x: x.find_elements(by=By.CLASS_NAME, value="sidebar-nav"))
             #driver.implicitly_wait(timer)
             driver.get(url+"/orders")
+            time.sleep(5)
             st.write(driver.current_url)
 
             # wait until order page is loaded
