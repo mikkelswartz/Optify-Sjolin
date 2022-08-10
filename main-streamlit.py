@@ -64,7 +64,7 @@ store = "H"
 from_date = datetime.date(2022,7,15)
 to_date = datetime.date(2022,7,31)
 # define email and password
-email = ''
+#email = ''
 #password = ''
 
 if st.button("Run"):
