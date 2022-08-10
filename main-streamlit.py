@@ -1,6 +1,5 @@
 
-import glob
-import os
+
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -26,19 +25,9 @@ options.add_argument("--headless")
 #options.add_argument("--window-size=1920x1080")
 #options.add_argument("--disable-features=VizDisplayCompositor")
 
-def delete_selenium_log():
-    if os.path.exists('selenium.log'):
-        os.remove('selenium.log')
 
-
-def show_selenium_log():
-    if os.path.exists('selenium.log'):
-        with open('selenium.log') as f:
-            content = f.read()
-            st.code(content)
 
 if __name__ == "__main__":
-    delete_selenium_log()
     
     col1, col2 = st.columns(2)
 
