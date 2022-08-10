@@ -64,10 +64,10 @@ to_date = datetime.date(2022,7,31)
 #password = ''
 
 if st.button("Run"):
-        with st.spinner("Vent venligst, programmet arbejder."):
+    with st.spinner("Vent venligst, programmet arbejder."):
 
         data = pd.DataFrame(columns = ["ordernumber", "orderlink", "created", "total_price"])
-       
+        
         # Locate chrome webdrive
         driver = webdriver.Chrome(options=options, service_log_path='selenium.log')
 
