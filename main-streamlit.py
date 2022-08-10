@@ -43,7 +43,7 @@ if st.button("Run"):
         data = pd.DataFrame(columns = ["ordernumber", "orderlink", "created", "total_price"])
 
         # Locate chrome webdrive
-        driver = webdriver.Chrome('/Users/mikkelswartz/OneDrive - Danmarks Tekniske Universitet/Documents/Personlig/Job/Sjölin/Web Scraping/chromedriver')
+        driver = webdriver.Chrome('.driver/chromedriver')
 
         def wait_for_loading(driver, class_name):
             try:
