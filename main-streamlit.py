@@ -92,10 +92,10 @@ if __name__ == "__main__":
             # type ind email and password to login
             #driver.find_element_by_name('username').send_keys(email)
             driver.find_element(by=By.NAME, value = 'username').send_keys(email)
-            test = driver.find_element(by=By.NAME, value = 'username').text
+            test = driver.find_element(by=By.ID, value = '__BVID__8').text
             st.write('username: ', test)
             #driver.find_element_by_name('password').send_keys(password + Keys.ENTER)
-            driver.find_element(by=By.NAME, value = 'password').send_keys(password + Keys.ENTER)
+            driver.find_element(by=By.ID, value = '__BVID__9').send_keys(password + Keys.ENTER)
 
             # relocate to orders when page is loaded
             #wait_for_loading(driver, "sidebar-nav")
