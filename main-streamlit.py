@@ -101,7 +101,7 @@ if __name__ == "__main__":
             #WebDriverWait(driver, 10).until(lambda x: x.find_element(by=By.CLASS_NAME, value="sidebar-nav"))
             #driver.implicitly_wait(timer)
             #time.sleep(5)
-            driver.get("https::/google.com")
+            driver.get("https://google.com")
             time.sleep(5)
             st.write(driver.current_url)
 
