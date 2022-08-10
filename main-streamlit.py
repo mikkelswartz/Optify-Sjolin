@@ -95,8 +95,10 @@ if __name__ == "__main__":
             username_elem = driver.find_element(by=By.NAME, value = 'username')#.send_keys(email)
             #driver.find_element_by_name('password').send_keys(password + Keys.ENTER)
             password_elem = driver.find_element(by=By.NAME, value = 'password')#.send_keys(password + Keys.ENTER)
+            
             username_elem.send_keys(email)
-            password_elem.send_keys(password + Keys.ENTER)
+            password_elem.send_keys(password)
+            driver.find_element(by=By.TYPE, value = "btn px-4 btn-primary").click()
             
             # relocate to orders when page is loaded
             #wait_for_loading(driver, "sidebar-nav")
