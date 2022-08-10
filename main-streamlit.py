@@ -62,7 +62,7 @@ if __name__ == "__main__":
             data = pd.DataFrame(columns = ["ordernumber", "orderlink", "created", "total_price"])
 
             # Locate chrome webdrive
-            driver = webdriver.Chrome(options=options, service_log_path='selenium.log')
+            driver = webdriver.Chrome(options=options)
 
             # def wait_for_loading(driver, class_name):
             #     try:
