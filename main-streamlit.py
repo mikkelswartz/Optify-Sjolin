@@ -121,7 +121,7 @@ if st.button("Run"):
 
         ####################### test end
 
-
+        st.write("totale ordre: ", 0)
 
         # find the total amount of orders --> can be used to now how many pages we need to go throug
         #total_orders_line = driver.find_element_by_xpath('/html/body/div[1]/div/main/div/div/div[2]/div[2]/div[3]/nav/p').text
