@@ -93,13 +93,16 @@ if st.button("Run"):
         st.write("logged in")
         
         # relocate to orders when page is loaded
-        wait_for_loading(driver, "sidebar-nav")
+        
+        #wait_for_loading(driver, "sidebar-nav")
+        driver.implicitly_wait(timer)
         st.write("finish")
         driver.get(url+"/orders")
 
         
         # wait until order page is loaded
-        wait_for_loading(driver, "VueTables__row ")
+        #wait_for_loading(driver, "VueTables__row ")
+        driver.implicitly_wait(timer)
 
 
         ####################### test start
