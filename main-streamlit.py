@@ -37,191 +37,193 @@ def show_selenium_log():
             content = f.read()
             st.code(content)
 
+if __name__ == "__main__":
+    delete_selenium_log()
+    
+    col1, col2 = st.columns(2)
 
-col1, col2 = st.columns(2)
+    with col1:
+        email = st.text_input("Skriv dit brugernavn:")
 
-with col1:
-    email = st.text_input("Skriv dit brugernavn:")
+    with col2:
+        password = st.text_input("Skriv din adgangskode:", type="password")
 
-with col2:
-    password = st.text_input("Skriv din adgangskode:", type="password")
+    col1, col2 = st.columns(2)
+    with col1:
+        from_date = st.date_input("Vælg startdato:")
 
-col1, col2 = st.columns(2)
-with col1:
-    from_date = st.date_input("Vælg startdato:")
+    with col2:
+        to_date = st.date_input("Vælg slutdato:")
 
-with col2:
-    to_date = st.date_input("Vælg slutdato:")
-
-#store = st.multiselect("Vælg butik: ", options = ["Lyngby (H)", "Århus (M)"])
-
-
-url = 'https://aarhus.sjolin.dk'
-store = "H"
-from_date = datetime.date(2022,7,15)
-to_date = datetime.date(2022,7,31)
-# define email and password
-#email = ''
-#password = ''
-timer = 30
-
-if st.button("Run"):
-    with st.spinner("Vent venligst, programmet arbejder."):
-
-        data = pd.DataFrame(columns = ["ordernumber", "orderlink", "created", "total_price"])
-        
-        # Locate chrome webdrive
-        driver = webdriver.Chrome(options=options, service_log_path='selenium.log')
-
-        # def wait_for_loading(driver, class_name):
-        #     try:
-        #         WebDriverWait(driver, timer).until(
-        #             EC.presence_of_element_located((By.CLASS_NAME, class_name))
-        #         )
-        #     except:
-        #         driver.quit()
-        #         print("driver quit: page " + str(driver.current_url) + "to slow to load.")
-        # open URL
-        driver.get(url)
-        st.write(driver.current_url)
-
-        st.write(driver.title)
-
-        # type ind email and password to login
-        #driver.find_element_by_name('username').send_keys(email)
-        driver.find_element(by=By.NAME, value = 'username').send_keys(email)
-        #driver.find_element_by_name('password').send_keys(password + Keys.ENTER)
-        driver.find_element(by=By.NAME, value = 'password').send_keys(password + Keys.ENTER)
-
-        # relocate to orders when page is loaded
-        #wait_for_loading(driver, "sidebar-nav")
-        #WebDriverWait(driver, 10).until(lambda x: x.find_elements(by=By.CLASS_NAME, value="sidebar-nav"))
-        #driver.implicitly_wait(timer)
-        driver.get(url+"/orders")
-        st.write(driver.current_url)
-        
-        # wait until order page is loaded
-        #wait_for_loading(driver, "VueTables__row ")
-        driver.implicitly_wait(timer)
-        st.write(driver.current_url)
+    #store = st.multiselect("Vælg butik: ", options = ["Lyngby (H)", "Århus (M)"])
 
 
-        ####################### test start
-        # orderlink = driver.find_element_by_xpath('/html/body/div[1]/div/main/div/div/div[2]/div[2]/div[2]/table/tbody/tr[21]/td[1]/a').get_attribute('href')
-        # print(orderlink)
-        # driver.get(orderlink)
+    url = 'https://aarhus.sjolin.dk'
+    store = "H"
+    from_date = datetime.date(2022,7,15)
+    to_date = datetime.date(2022,7,31)
+    # define email and password
+    #email = ''
+    #password = ''
+    timer = 30
 
-        # driver.implicitly_wait(10)
-        # #t_body = driver.find_elements_by_xpath('/html/body/div[1]/div/main/div/div/div[3]/div[2]/div[1]/div/div/div[1]/div[1]/div[2]/div[1]/table/tbody')
-        # time.sleep(1)
-        # driver.find_element_by_xpath('/html/body/div[1]/div/main/div/div/div[3]/div[2]/div[1]/div/div/div[1]/div[1]/div[2]/div[1]/table/tbody/tr[1]/td[7]/div/button[1]').click()
-        # time.sleep(1)
-        # driver.find_element_by_xpath('/html/body/div[1]/div/main/div/div/div[3]/div[2]/div[1]/div/div/div[1]/div[1]/div[2]/div[1]/table/tbody/tr[1]/td[7]/div/button[1]').click()
+    if st.button("Run"):
+        with st.spinner("Vent venligst, programmet arbejder."):
 
-        # driver.find_element_by_xpath('/html/body/div[1]/div/main/div/div/div[3]/div[2]/div[1]/div/div/div[1]/div[1]/div[2]/div[1]/table/tbody/tr[2]/td[7]/div/button[1]').click()
-        # #/html/body/div[1]/div/main/div/div/div[3]/div[2]/div[1]/div/div/div[1]/div[1]/div[2]/div[1]/table/tbody/tr[1]/td[7]/div/button[1]
-        # #/html/body/div[1]/div/main/div/div/div[3]/div[2]/div[1]/div/div/div[1]/div[1]/div[2]/div[1]/table/tbody/tr[2]/td[7]/div/button[1]
+            data = pd.DataFrame(columns = ["ordernumber", "orderlink", "created", "total_price"])
 
+            # Locate chrome webdrive
+            driver = webdriver.Chrome(options=options, service_log_path='selenium.log')
 
-        ####################### test end
+            # def wait_for_loading(driver, class_name):
+            #     try:
+            #         WebDriverWait(driver, timer).until(
+            #             EC.presence_of_element_located((By.CLASS_NAME, class_name))
+            #         )
+            #     except:
+            #         driver.quit()
+            #         print("driver quit: page " + str(driver.current_url) + "to slow to load.")
+            # open URL
+            driver.get(url)
+            st.write(driver.current_url)
 
-        st.write("totale ordre: ", 0)
+            st.write(driver.title)
 
-        # find the total amount of orders --> can be used to now how many pages we need to go throug
-        #total_orders_line = driver.find_element_by_xpath('/html/body/div[1]/div/main/div/div/div[2]/div[2]/div[3]/nav/p').text
-        #total_orders_line = driver.find_element(by=By.XPATH, value = '/html/body/div[1]/div/main/div/div/div[2]/div[2]/div[3]/nav/p').text
-        total_orders_line = driver.find_element(by=By.CLASS_NAME, value = 'VuePagination__count VuePagination__count text-center col-md-12').text
+            # type ind email and password to login
+            #driver.find_element_by_name('username').send_keys(email)
+            driver.find_element(by=By.NAME, value = 'username').send_keys(email)
+            #driver.find_element_by_name('password').send_keys(password + Keys.ENTER)
+            driver.find_element(by=By.NAME, value = 'password').send_keys(password + Keys.ENTER)
 
-        st.write("totale ordre: ", total_orders_line)
-        
-        total_orders = int(total_orders_line.split(' ')[-2].replace(',',''))
+            # relocate to orders when page is loaded
+            #wait_for_loading(driver, "sidebar-nav")
+            #WebDriverWait(driver, 10).until(lambda x: x.find_elements(by=By.CLASS_NAME, value="sidebar-nav"))
+            #driver.implicitly_wait(timer)
+            driver.get(url+"/orders")
+            st.write(driver.current_url)
 
-        total_pages = int(total_orders/50)
-        total_page_ten = total_pages - total_pages % 10
-
-        break_bool = False
-        for i in range(0,total_pages+1):
-            #for i in range(0,1): ### --> for testing
-            driver.implicitly_wait(10)
-            time.sleep(0.2)
-            # find all orderlines 
-            #orderlines = driver.find_elements_by_class_name('VueTables__row ')
-            orderlines = driver.find_elements(by=By.CLASS_NAME, value = 'VueTables__row ')
-
-            count = 0
-            for orderline in orderlines:
-                # find creation date
-                count += 1
-                #creation_date = (str(driver.find_element_by_xpath('/html/body/div[1]/div/main/div/div/div[2]/div[2]/div[2]/table/tbody/tr['+str(count)+']/td[11]').text)[:-6])
-                creation_date = (str(driver.find_element(by=By.XPATH, value = '/html/body/div[1]/div/main/div/div/div[2]/div[2]/div[2]/table/tbody/tr['+str(count)+']/td[11]').text)[:-6])
-
-                creation_date = datetime.datetime.strptime(creation_date.replace('-',''),"%d%m%Y").date()
-
-                
-                if to_date >= creation_date >= from_date:
-
-                    # extract information from orderline
-                    # order = orderline.find_element_by_class_name('null')
-                    # orderlink = order.find_element_by_tag_name('a').get_attribute('href')
-                    # ordernumber = order.find_element_by_tag_name('a').text
-                    order = orderline.find_element(by=By.CLASS_NAME, value = 'null')
-                    orderlink = order.find_element(by=By.TAG_NAME, value = 'a').get_attribute('href')
-                    ordernumber = order.find_element(by=By.TAG_NAME, value ='a').text
+            # wait until order page is loaded
+            #wait_for_loading(driver, "VueTables__row ")
+            driver.implicitly_wait(timer)
+            st.write(driver.current_url)
 
 
-                    # If a specific store is chosen, then only keep those orders
-                    if store == '':
-                        data.loc[len(data)] = [ordernumber, orderlink, creation_date, None]
-                    elif ordernumber[-1] == store:
+            ####################### test start
+            # orderlink = driver.find_element_by_xpath('/html/body/div[1]/div/main/div/div/div[2]/div[2]/div[2]/table/tbody/tr[21]/td[1]/a').get_attribute('href')
+            # print(orderlink)
+            # driver.get(orderlink)
+
+            # driver.implicitly_wait(10)
+            # #t_body = driver.find_elements_by_xpath('/html/body/div[1]/div/main/div/div/div[3]/div[2]/div[1]/div/div/div[1]/div[1]/div[2]/div[1]/table/tbody')
+            # time.sleep(1)
+            # driver.find_element_by_xpath('/html/body/div[1]/div/main/div/div/div[3]/div[2]/div[1]/div/div/div[1]/div[1]/div[2]/div[1]/table/tbody/tr[1]/td[7]/div/button[1]').click()
+            # time.sleep(1)
+            # driver.find_element_by_xpath('/html/body/div[1]/div/main/div/div/div[3]/div[2]/div[1]/div/div/div[1]/div[1]/div[2]/div[1]/table/tbody/tr[1]/td[7]/div/button[1]').click()
+
+            # driver.find_element_by_xpath('/html/body/div[1]/div/main/div/div/div[3]/div[2]/div[1]/div/div/div[1]/div[1]/div[2]/div[1]/table/tbody/tr[2]/td[7]/div/button[1]').click()
+            # #/html/body/div[1]/div/main/div/div/div[3]/div[2]/div[1]/div/div/div[1]/div[1]/div[2]/div[1]/table/tbody/tr[1]/td[7]/div/button[1]
+            # #/html/body/div[1]/div/main/div/div/div[3]/div[2]/div[1]/div/div/div[1]/div[1]/div[2]/div[1]/table/tbody/tr[2]/td[7]/div/button[1]
+
+
+            ####################### test end
+
+            st.write("totale ordre: ", 0)
+
+            # find the total amount of orders --> can be used to now how many pages we need to go throug
+            #total_orders_line = driver.find_element_by_xpath('/html/body/div[1]/div/main/div/div/div[2]/div[2]/div[3]/nav/p').text
+            #total_orders_line = driver.find_element(by=By.XPATH, value = '/html/body/div[1]/div/main/div/div/div[2]/div[2]/div[3]/nav/p').text
+            total_orders_line = driver.find_element(by=By.CLASS_NAME, value = 'VuePagination__count VuePagination__count text-center col-md-12').text
+
+            st.write("totale ordre: ", total_orders_line)
+
+            total_orders = int(total_orders_line.split(' ')[-2].replace(',',''))
+
+            total_pages = int(total_orders/50)
+            total_page_ten = total_pages - total_pages % 10
+
+            break_bool = False
+            for i in range(0,total_pages+1):
+                #for i in range(0,1): ### --> for testing
+                driver.implicitly_wait(10)
+                time.sleep(0.2)
+                # find all orderlines 
+                #orderlines = driver.find_elements_by_class_name('VueTables__row ')
+                orderlines = driver.find_elements(by=By.CLASS_NAME, value = 'VueTables__row ')
+
+                count = 0
+                for orderline in orderlines:
+                    # find creation date
+                    count += 1
+                    #creation_date = (str(driver.find_element_by_xpath('/html/body/div[1]/div/main/div/div/div[2]/div[2]/div[2]/table/tbody/tr['+str(count)+']/td[11]').text)[:-6])
+                    creation_date = (str(driver.find_element(by=By.XPATH, value = '/html/body/div[1]/div/main/div/div/div[2]/div[2]/div[2]/table/tbody/tr['+str(count)+']/td[11]').text)[:-6])
+
+                    creation_date = datetime.datetime.strptime(creation_date.replace('-',''),"%d%m%Y").date()
+
+
+                    if to_date >= creation_date >= from_date:
+
+                        # extract information from orderline
+                        # order = orderline.find_element_by_class_name('null')
+                        # orderlink = order.find_element_by_tag_name('a').get_attribute('href')
+                        # ordernumber = order.find_element_by_tag_name('a').text
+                        order = orderline.find_element(by=By.CLASS_NAME, value = 'null')
+                        orderlink = order.find_element(by=By.TAG_NAME, value = 'a').get_attribute('href')
+                        ordernumber = order.find_element(by=By.TAG_NAME, value ='a').text
+
+
+                        # If a specific store is chosen, then only keep those orders
+                        if store == '':
                             data.loc[len(data)] = [ordernumber, orderlink, creation_date, None]
-                elif creation_date < from_date:
-                    break_bool = True
+                        elif ordernumber[-1] == store:
+                                data.loc[len(data)] = [ordernumber, orderlink, creation_date, None]
+                    elif creation_date < from_date:
+                        break_bool = True
+                        break
+                if break_bool:
                     break
-            if break_bool:
-                break
 
-            # Go to next page
-            if i < total_page_ten: # runs if there is 10 pages to choose from
-                #next_page_button = driver.find_element_by_xpath('/html/body/div[1]/div/main/div/div/div[2]/div[2]/div[3]/nav/ul/li[13]')
-                next_page_button = driver.find_element(by=By.XPATH, value = '/html/body/div[1]/div/main/div/div/div[2]/div[2]/div[3]/nav/ul/li[13]')
-                next_page_button.click()
-            elif i != total_pages: # runs if there is less than 10 pages
-                #next_page_button = driver.find_element_by_xpath('/html/body/div[1]/div/main/div/div/div[2]/div[2]/div[3]/nav/ul/li[' + str(4 + total_pages%10) +']/a')
-                next_page_button = driver.find_element(by=By.XPATH, value = '/html/body/div[1]/div/main/div/div/div[2]/div[2]/div[3]/nav/ul/li[' + str(4 + total_pages%10) +']/a')
+                # Go to next page
+                if i < total_page_ten: # runs if there is 10 pages to choose from
+                    #next_page_button = driver.find_element_by_xpath('/html/body/div[1]/div/main/div/div/div[2]/div[2]/div[3]/nav/ul/li[13]')
+                    next_page_button = driver.find_element(by=By.XPATH, value = '/html/body/div[1]/div/main/div/div/div[2]/div[2]/div[3]/nav/ul/li[13]')
+                    next_page_button.click()
+                elif i != total_pages: # runs if there is less than 10 pages
+                    #next_page_button = driver.find_element_by_xpath('/html/body/div[1]/div/main/div/div/div[2]/div[2]/div[3]/nav/ul/li[' + str(4 + total_pages%10) +']/a')
+                    next_page_button = driver.find_element(by=By.XPATH, value = '/html/body/div[1]/div/main/div/div/div[2]/div[2]/div[3]/nav/ul/li[' + str(4 + total_pages%10) +']/a')
 
-                next_page_button.click()
-            
-            
+                    next_page_button.click()
 
 
-        # Open all orderlinks and scape the information needed.
-        for i in range(0, len(data['ordernumber'])):
-            # for i in range(0, 2): ### --> for testing
-            # """
-            # # Open new tab
-            # new_tab_script = "window.open('" + str(orderlinks[i]) + "', '" + str(ordernumbers[i]) + "');"
-            # driver.execute_script(new_tab_script)
-            # #print(driver.current_url)
-            # driver.switch_to.window(ordernumbers[i])
-            # #print(driver.current_url)
-            # """
-            # go to next order URL
-            driver.get(data['orderlink'][i])
 
-            # Wait for page to load
-            driver.implicitly_wait(10)
 
-            # find total cost
-            # total_containter = driver.find_element_by_class_name('total')
-            # total_containter_last = total_containter.find_element_by_class_name('last')
-            # total_cost = (total_containter_last.find_element_by_class_name('float-right').text)[:-3].replace('.','').replace(',','.')
-            total_containter = driver.find_element(by=By.CLASS_NAME, value = 'total')
-            total_containter_last = total_containter.find_element(by=By.CLASS_NAME, value = 'last')
-            total_cost = (total_containter_last.find_element(by=By.CLASS_NAME, value = 'float-right').text)[:-3].replace('.','').replace(',','.')
+            # Open all orderlinks and scape the information needed.
+            for i in range(0, len(data['ordernumber'])):
+                # for i in range(0, 2): ### --> for testing
+                # """
+                # # Open new tab
+                # new_tab_script = "window.open('" + str(orderlinks[i]) + "', '" + str(ordernumbers[i]) + "');"
+                # driver.execute_script(new_tab_script)
+                # #print(driver.current_url)
+                # driver.switch_to.window(ordernumbers[i])
+                # #print(driver.current_url)
+                # """
+                # go to next order URL
+                driver.get(data['orderlink'][i])
 
-            data['total_price'][i] = float(total_cost)
+                # Wait for page to load
+                driver.implicitly_wait(10)
 
-        #time.sleep(10)
-        #close the driver
-        driver.quit()
+                # find total cost
+                # total_containter = driver.find_element_by_class_name('total')
+                # total_containter_last = total_containter.find_element_by_class_name('last')
+                # total_cost = (total_containter_last.find_element_by_class_name('float-right').text)[:-3].replace('.','').replace(',','.')
+                total_containter = driver.find_element(by=By.CLASS_NAME, value = 'total')
+                total_containter_last = total_containter.find_element(by=By.CLASS_NAME, value = 'last')
+                total_cost = (total_containter_last.find_element(by=By.CLASS_NAME, value = 'float-right').text)[:-3].replace('.','').replace(',','.')
+
+                data['total_price'][i] = float(total_cost)
+
+            #time.sleep(10)
+            #close the driver
+            driver.quit()
     
