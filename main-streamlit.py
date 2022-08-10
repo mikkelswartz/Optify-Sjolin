@@ -92,17 +92,13 @@ if __name__ == "__main__":
 
             # type ind email and password to login
             #driver.find_element_by_name('username').send_keys(email)
-            input_username = driver.find_element(by=By.NAME, value = 'username')
-            input_username.clear()
-            input_username.send_keys(email)
-
-            
+            driver.find_element(by=By.NAME, value = 'username').send_keys(email)
             #driver.find_element_by_name('password').send_keys(password + Keys.ENTER)
             driver.find_element(by=By.NAME, value = 'password').send_keys(password + Keys.ENTER)
             
             # relocate to orders when page is loaded
             #wait_for_loading(driver, "sidebar-nav")
-            #WebDriverWait(driver, 10).until(lambda x: x.find_elements(by=By.CLASS_NAME, value="sidebar-nav"))
+            WebDriverWait(driver, 10).until(lambda x: x.find_element(by=By.CLASS_NAME, value="sidebar-nav"))
             #driver.implicitly_wait(timer)
             time.sleep(5)
             driver.get(url+"/orders")
