@@ -93,7 +93,7 @@ if __name__ == "__main__":
             #driver.find_element_by_name('username').send_keys(email)
             driver.find_element(by=By.NAME, value = 'username').send_keys(email)
             test = driver.find_element(by=By.NAME, value = 'username').text
-            st.write(test)
+            st.write('username: ', test)
             #driver.find_element_by_name('password').send_keys(password + Keys.ENTER)
             driver.find_element(by=By.NAME, value = 'password').send_keys(password + Keys.ENTER)
 
