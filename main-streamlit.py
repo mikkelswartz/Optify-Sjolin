@@ -62,6 +62,7 @@ to_date = datetime.date(2022,7,31)
 # define email and password
 #email = ''
 #password = ''
+timer = 30
 
 if st.button("Run"):
     with st.spinner("Vent venligst, programmet arbejder."):
@@ -73,7 +74,7 @@ if st.button("Run"):
 
         def wait_for_loading(driver, class_name):
             try:
-                WebDriverWait(driver, 10).until(
+                WebDriverWait(driver, timer).until(
                     EC.presence_of_element_located((By.CLASS_NAME, class_name))
                 )
             except:
@@ -128,7 +129,7 @@ if st.button("Run"):
         break_bool = False
         for i in range(0,total_pages+1):
             #for i in range(0,1): ### --> for testing
-            driver.implicitly_wait(10)
+            driver.implicitly_wait(timer)
             time.sleep(0.2)
             # find all orderlines 
             orderlines = driver.find_elements_by_class_name('VueTables__row ')
@@ -186,7 +187,7 @@ if st.button("Run"):
             driver.get(data['orderlink'][i])
 
             # Wait for page to load
-            driver.implicitly_wait(10)
+            driver.implicitly_wait(timer)
 
             # find total cost
             total_containter = driver.find_element_by_class_name('total')
