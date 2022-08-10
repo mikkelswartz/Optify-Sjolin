@@ -82,6 +82,7 @@ if st.button("Run"):
         #         print("driver quit: page " + str(driver.current_url) + "to slow to load.")
         # open URL
         driver.get(url)
+        st.write(driver.current_url)
 
         st.write(driver.title)
 
@@ -95,11 +96,12 @@ if st.button("Run"):
         #(driver, "sidebar-nav")
         driver.implicitly_wait(timer)
         driver.get(url+"/orders")
-
+        st.write(driver.current_url)
         
         # wait until order page is loaded
         #wait_for_loading(driver, "VueTables__row ")
         driver.implicitly_wait(timer)
+        st.write(driver.current_url)
 
 
         ####################### test start
