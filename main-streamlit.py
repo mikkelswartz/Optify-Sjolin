@@ -95,8 +95,8 @@ if st.button("Run"):
 
         # relocate to orders when page is loaded
         #wait_for_loading(driver, "sidebar-nav")
-        WebDriverWait(driver, 10).until(lambda x: x.find_elements(by=By.CLASS_NAME, value="sidebar-nav"))
-        driver.implicitly_wait(timer)
+        #WebDriverWait(driver, 10).until(lambda x: x.find_elements(by=By.CLASS_NAME, value="sidebar-nav"))
+        #driver.implicitly_wait(timer)
         driver.get(url+"/orders")
         st.write(driver.current_url)
         
