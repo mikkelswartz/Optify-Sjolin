@@ -36,13 +36,6 @@ def show_selenium_log():
             content = f.read()
             st.code(content)
 
-def run_selenium():
-    name = str()
-    with webdriver.Chrome(options=options, service_log_path='selenium.log') as driver:
-        url = "https://aarhus.sjolin.dk"
-        driver.get(url)
-        name = driver.title
-    return name
 
 col1, col2 = st.columns(2)
 
@@ -71,7 +64,10 @@ to_date = datetime.date(2022,7,31)
 #password = ''
 
 if st.button("Run"):
-    title = run_selenium()
+    driver = webdriver.Chrome(options=options, service_log_path='selenium.log')
+    url = "https://aarhus.sjolin.dk"
+    driver.get(url)
+    name = driver.title
     
-    st.write(title)
+    st.write(name)
     
