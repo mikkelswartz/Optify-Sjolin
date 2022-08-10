@@ -62,52 +62,53 @@ if __name__ == "__main__":
             data = pd.DataFrame(columns = ["ordernumber", "orderlink", "created", "total_price"])
 
             # Locate chrome webdrive
-            driver = webdriver.Chrome(options=options)
+            #driver = webdriver.Chrome(options=options)
+            with webdriver.Chrome(options=options) as driver:
 
-            # def wait_for_loading(driver, class_name):
-            #     try:
-            #         WebDriverWait(driver, timer).until(
-            #             EC.presence_of_element_located((By.CLASS_NAME, class_name))
-            #         )
-            #     except:
-            #         driver.quit()
-            #         print("driver quit: page " + str(driver.current_url) + "to slow to load.")
-            # open URL
-            driver.get(url)
-            time.sleep(5)
-            st.write(driver.current_url)
+                # def wait_for_loading(driver, class_name):
+                #     try:
+                #         WebDriverWait(driver, timer).until(
+                #             EC.presence_of_element_located((By.CLASS_NAME, class_name))
+                #         )
+                #     except:
+                #         driver.quit()
+                #         print("driver quit: page " + str(driver.current_url) + "to slow to load.")
+                # open URL
+                driver.get(url)
+                time.sleep(5)
+                st.write(driver.current_url)
 
-            st.write(driver.title)
+                st.write(driver.title)
 
-            # type ind email and password to login
-            #driver.find_element_by_name('username').send_keys(email)
-            driver.find_element(by=By.NAME, value = 'username').send_keys(email)
-            #driver.find_element_by_name('password').send_keys(password + Keys.ENTER)
-            driver.find_element(by=By.NAME, value = 'password').send_keys(password + Keys.ENTER)
-
-            
-            # relocate to orders when page is loaded
-            #wait_for_loading(driver, "sidebar-nav")
-            #WebDriverWait(driver, 10).until(lambda x: x.find_element(by=By.CLASS_NAME, value="sidebar-nav"))
-            #driver.implicitly_wait(timer)
-            #time.sleep(5)
-            #driver.get("https://google.com")
-            time.sleep(5)
-            st.write(driver.current_url)
-            
-            driver.get(url)
-            time.sleep(5)
-            st.write(driver.current_url)
-
-            # wait until order page is loaded
-            #wait_for_loading(driver, "VueTables__row ")
-            #driver.implicitly_wait(timer)
-            #st.write(driver.current_url)
+                # type ind email and password to login
+                #driver.find_element_by_name('username').send_keys(email)
+                driver.find_element(by=By.NAME, value = 'username').send_keys(email)
+                #driver.find_element_by_name('password').send_keys(password + Keys.ENTER)
+                driver.find_element(by=By.NAME, value = 'password').send_keys(password + Keys.ENTER)
 
 
+                # relocate to orders when page is loaded
+                #wait_for_loading(driver, "sidebar-nav")
+                #WebDriverWait(driver, 10).until(lambda x: x.find_element(by=By.CLASS_NAME, value="sidebar-nav"))
+                #driver.implicitly_wait(timer)
+                #time.sleep(5)
+                #driver.get("https://google.com")
+                time.sleep(5)
+                st.write(driver.current_url)
+
+                driver.get(url)
+                time.sleep(5)
+                st.write(driver.current_url)
+
+                # wait until order page is loaded
+                #wait_for_loading(driver, "VueTables__row ")
+                #driver.implicitly_wait(timer)
+                #st.write(driver.current_url)
 
 
-            #time.sleep(10)
-            #close the driver
-            driver.quit()
+
+
+                #time.sleep(10)
+                #close the driver
+                driver.quit()
     
