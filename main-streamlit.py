@@ -3,6 +3,8 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.options import Options
+
 import pandas as pd
 import datetime
 import sys
@@ -10,6 +12,9 @@ import streamlit as st
 
 import time
 #from webdriver_manager.chrome import ChromeDriverManager
+
+options = Options()
+options.add_argument("--headless")
 
 col1, col2 = st.columns(2)
 
@@ -31,10 +36,10 @@ with col2:
 
 url = 'https://aarhus.sjolin.dk'
 store = "H"
-#from_date = datetime.date(2022,7,1)
-#to_date = datetime.date(2022,7,31)
+from_date = datetime.date(2022,7,15)
+to_date = datetime.date(2022,7,31)
 # define email and password
-#email = ''
+email = ''
 #password = ''
 
 if st.button("Run"):
@@ -43,7 +48,8 @@ if st.button("Run"):
         data = pd.DataFrame(columns = ["ordernumber", "orderlink", "created", "total_price"])
 
         # Locate chrome webdrive
-        driver = webdriver.Chrome('.driver/chromedriver')
+        PATH = 'driver/chromedriver'
+        driver = webdriver.Chrome(PATH, options=options)
 
         def wait_for_loading(driver, class_name):
             try:
