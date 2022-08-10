@@ -72,14 +72,14 @@ if st.button("Run"):
         # Locate chrome webdrive
         driver = webdriver.Chrome(options=options, service_log_path='selenium.log')
 
-        def wait_for_loading(driver, class_name):
-            try:
-                WebDriverWait(driver, timer).until(
-                    EC.presence_of_element_located((By.CLASS_NAME, class_name))
-                )
-            except:
-                driver.quit()
-                print("driver quit: page " + str(driver.current_url) + "to slow to load.")
+        # def wait_for_loading(driver, class_name):
+        #     try:
+        #         WebDriverWait(driver, timer).until(
+        #             EC.presence_of_element_located((By.CLASS_NAME, class_name))
+        #         )
+        #     except:
+        #         driver.quit()
+        #         print("driver quit: page " + str(driver.current_url) + "to slow to load.")
         # open URL
         driver.get(url)
 
@@ -92,12 +92,14 @@ if st.button("Run"):
         driver.find_element(by=By.NAME, value = 'password').send_keys(password + Keys.ENTER)
 
         # relocate to orders when page is loaded
-        wait_for_loading(driver, "sidebar-nav")
+        #(driver, "sidebar-nav")
+        driver.implicitly_wait(timer)
         driver.get(url+"/orders")
 
         
         # wait until order page is loaded
-        wait_for_loading(driver, "VueTables__row ")
+        #wait_for_loading(driver, "VueTables__row ")
+        driver.implicitly_wait(timer)
 
 
         ####################### test start
