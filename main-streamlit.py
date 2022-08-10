@@ -89,8 +89,12 @@ if st.button("Run"):
         driver.find_element_by_name('username').send_keys(email)
         driver.find_element_by_name('password').send_keys(password + Keys.ENTER)
 
+        
+        st.write("logged in")
+        
         # relocate to orders when page is loaded
         wait_for_loading(driver, "sidebar-nav")
+        st.write("finish")
         driver.get(url+"/orders")
 
         
