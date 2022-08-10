@@ -98,7 +98,8 @@ if __name__ == "__main__":
             
             username_elem.send_keys(email)
             password_elem.send_keys(password)
-            driver.find_element(by=By.CLASS_NAME, value = "col-6").click()
+            button = driver.find_element(by=By.CLASS_NAME, value = "col-6")
+            button.find_element(by=By.CLASS_NAME, value = "btn px-4 btn-primary").click()
             
             # relocate to orders when page is loaded
             #wait_for_loading(driver, "sidebar-nav")
