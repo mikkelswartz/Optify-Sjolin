@@ -88,25 +88,26 @@ if __name__ == "__main__":
 
 
                 # relocate to orders when page is loaded
-                #wait_for_loading(driver, "sidebar-nav")
+                wait_for_loading(driver, "sidebar-nav")
                 #WebDriverWait(driver, 10).until(lambda x: x.find_element(by=By.CLASS_NAME, value="sidebar-nav"))
                 #driver.implicitly_wait(timer)
                 #time.sleep(5)
                 #driver.get("https://google.com")
-                time.sleep(5)
+                #time.sleep(5)
                 st.write(driver.current_url)
 
-                driver.get(url)
+                driver.get(url+"/orders")
                 time.sleep(5)
                 st.write(driver.current_url)
 
                 # wait until order page is loaded
-                #wait_for_loading(driver, "VueTables__row ")
+                wait_for_loading(driver, "VueTables__row")
                 #driver.implicitly_wait(timer)
-                #st.write(driver.current_url)
+                st.write(driver.current_url)
 
-
-
+                total_orders_line = driver.find_element(by=By.CLASS_NAME, value = 'VuePagination__count.VuePagination__count.text-center.col-md-12').text
+                total_orders = int(total_orders_line.split(' ')[-2].replace(',',''))
+                st.write(total_orders)
 
                 #time.sleep(10)
                 #close the driver
