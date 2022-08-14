@@ -65,14 +65,14 @@ if __name__ == "__main__":
             #driver = webdriver.Chrome(options=options)
             with webdriver.Chrome(options=options) as driver:
 
-                # def wait_for_loading(driver, class_name):
-                #     try:
-                #         WebDriverWait(driver, timer).until(
-                #             EC.presence_of_element_located((By.CLASS_NAME, class_name))
-                #         )
-                #     except:
-                #         driver.quit()
-                #         print("driver quit: page " + str(driver.current_url) + "to slow to load.")
+                def wait_for_loading(driver, class_name):
+                    try:
+                        WebDriverWait(driver, timer).until(
+                            EC.presence_of_element_located((By.CLASS_NAME, class_name))
+                        )
+                    except:
+                        driver.quit()
+                        print("driver quit: page " + str(driver.current_url) + "to slow to load.")
                 # open URL
                 driver.get(url)
                 time.sleep(5)
