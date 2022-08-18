@@ -203,6 +203,38 @@ if __name__ == "__main__":
                 status.empty()
 
                 #find_turnover(data)
+                status = st.info("Finder totale pris for hver enkelt ordre:")
+                progress_bar = st.progress(0)
+
+                # Open all orderlinks and scape the information needed.
+                for i in range(0, len(data['ordernumber'])):
+
+                    # go to next order URL
+                    driver.get(data['orderlink'][i])
+
+                    # Wait for page to load
+                    driver.implicitly_wait(DriverWaitTimer)
+
+                    # find total cost
+                    total_containter = driver.find_element(by=By.CLASS_NAME, value = 'total')
+                    total_containter_last = total_containter.find_element(by=By.CLASS_NAME, value = 'last')
+                    total_cost = (total_containter_last.find_element(by=By.CLASS_NAME, value = 'float-right').text)[:-3].replace('.','').replace(',','.')
+
+                    data['total_price'][i] = total_cost
+                    data['total_price_float'][i] = float(total_cost)
+
+                    progress_bar.progress((1+i)/len(data['ordernumber']))
+
+
+                progress_bar.empty()
+                status.empty()
+
+
+                st.write(data)
+
+                st.dataframe(data[['ordernumber', 'created', 'total_price']])
+
+                st.write("Total turnover:", "{:.2f}".format(data['total_price_float'].sum()), "DKK" )
 
                 #driver.quit()
             
