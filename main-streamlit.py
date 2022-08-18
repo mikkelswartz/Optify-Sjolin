@@ -29,7 +29,7 @@ options.add_argument("--disable-features=VizDisplayCompositor")
 PATH = 'driver/chromedriver'
 which_platform = platform.processor()
 
-
+DriverWaitTimer = 30
 url = 'https://aarhus.sjolin.dk'
 
 # if local:
@@ -116,6 +116,89 @@ if __name__ == "__main__":
 
                 #data = iterate_over_order_pages(selected_stores_letter, from_date, to_date)
                 #time.sleep(0.2)
+                status = st.info("Danner overblik over ordre.")
+
+                data = pd.DataFrame(columns = ["ordernumber", 
+                    "orderlink", 
+                    "costumer",
+                    "employee",
+                    "event",
+                    "prod_status",
+                    "producer",
+                    "order_type",
+                    "payment_status",
+                    "usage_date",
+                    "shipping_date",
+                    "created", 
+                    "total_price",
+                    "total_price_float"])
+
+                # redirect to orders page and wait for loading
+                driver.get(url+"/orders")
+                #driver.get("https://aarhus.sjolin.dk/orders")
+                wait_for_loading(driver, "VueTables__row")
+
+                # find the number of total orders
+                total_orders_line = driver.find_element(by=By.CLASS_NAME, value = 'VuePagination__count.VuePagination__count.text-center.col-md-12').text
+                total_orders = int(total_orders_line.split(' ')[-2].replace(',',''))
+
+                total_pages = int(total_orders/50)
+                break_bool = False
+                for i in range(0,total_pages):
+                    driver.implicitly_wait(DriverWaitTimer)
+                    # find all orderlines 
+                    orderlines = driver.find_elements(by=By.CLASS_NAME, value = 'VueTables__row ')
+
+                    count = 0
+                    for orderline in orderlines:
+                        costumer = employee = event = prod_status = producer = order_type = payment_status = usage_date = shipping_date = None
+
+                        # find creation date
+                        count += 1
+                        creation_date = (str(driver.find_element(by=By.XPATH, value = '/html/body/div[1]/div/main/div/div/div[2]/div[2]/div[2]/table/tbody/tr['+str(count)+']/td[11]').text)[:-6])
+                        creation_date = datetime.datetime.strptime(creation_date.replace('-',''),"%d%m%Y").date()
+
+                        if to_date >= creation_date >= from_date:
+
+                            # extract information from orderline
+                            orderline_elements = orderline.find_elements(by=By.CLASS_NAME, value = 'null')
+                            orderlink = orderline_elements[0].find_element(by=By.TAG_NAME, value = 'a').get_attribute('href')
+                            ordernumber = orderline_elements[0].find_element(by=By.TAG_NAME, value ='a').text
+
+                            if len(variables) != 0:
+                                if "costumer" in variables:
+                                    costumer = orderline_elements[1].text
+                                if "employee" in variables:
+                                    employee = orderline_elements[2].text
+                                if "event" in variables:
+                                    event = orderline.find_element(by=By.CLASS_NAME, value = 'undefined').text
+                                if "prod_status" in variables:
+                                    prod_status = orderline_elements[3].text
+                                if "producer" in variables:
+                                    producer = orderline_elements[4].text
+                                if "order_type" in variables:
+                                    order_type = orderline_elements[5].text
+                                if "payment_status" in variables:
+                                    payment_status = orderline_elements[6].text
+                                if "usage_date" in variables:
+                                    usage_date = orderline_elements[7].text
+                                if "shipping_date" in variables:
+                                    shipping_date = orderline_elements[8].text
+
+                            # If a specific store is chosen, then only keep those orders
+                            if ordernumber[-1] in stores:
+                                data.loc[len(data)] = [ordernumber, orderlink, costumer, employee, event, prod_status, producer, order_type, payment_status, usage_date, shipping_date, creation_date, None, None]
+                        elif creation_date < from_date:
+                            break_bool = True
+                            break
+                    if break_bool:
+                        break
+
+                    # Go to next page
+                    next_page_button = driver.find_element(by=By.CLASS_NAME, value = 'VuePagination__pagination-item.page-item.VuePagination__pagination-item.VuePagination__pagination-item-next-page.page-item.VuePagination__pagination-item-next-page')
+                    next_page_button.click()
+
+                status.empty()
 
                 #find_turnover(data)
 
