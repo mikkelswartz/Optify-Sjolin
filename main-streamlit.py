@@ -83,32 +83,32 @@ if __name__ == "__main__":
 
 
     if st.button("Find omsætning"):
-    if len(selected_stores) == 0:
-        st.warning("Du skal vælge mindst én butik.")
+        if len(selected_stores) == 0:
+            st.warning("Du skal vælge mindst én butik.")
 
-    else:
-        with st.spinner("Vent venligst, programmet arbejder."):
+        else:
+            with st.spinner("Vent venligst, programmet arbejder."):
 
-            # login to optify
-            #login(username, password)
-            driver.get(url)
+                # login to optify
+                #login(username, password)
+                driver.get(url)
 
-            if driver.current_url != url:
-                # type ind email and password to login
-                driver.find_element(by=By.NAME, value = 'username').send_keys(username)
-                driver.find_element(by=By.NAME, value = 'password').send_keys(password + Keys.ENTER)
+                if driver.current_url != url:
+                    # type ind email and password to login
+                    driver.find_element(by=By.NAME, value = 'username').send_keys(username)
+                    driver.find_element(by=By.NAME, value = 'password').send_keys(password + Keys.ENTER)
 
-            # relocate to orders when page is loaded
-            wait_for_loading(driver, "sidebar-nav")
-            st.write(driver.current_url)
-            #time.sleep(0.2)
+                # relocate to orders when page is loaded
+                wait_for_loading(driver, "sidebar-nav")
+                st.write(driver.current_url)
+                #time.sleep(0.2)
 
-            #data = iterate_over_order_pages(selected_stores_letter, from_date, to_date)
-            #time.sleep(0.2)
+                #data = iterate_over_order_pages(selected_stores_letter, from_date, to_date)
+                #time.sleep(0.2)
 
-            #find_turnover(data)
+                #find_turnover(data)
 
-            #driver.quit()
+                #driver.quit()
             
     driver.quit()
     
