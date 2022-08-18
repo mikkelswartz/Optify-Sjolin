@@ -82,33 +82,33 @@ if __name__ == "__main__":
 
 
 
-        if st.button("Find omsætning"):
-        if len(selected_stores) == 0:
-            st.warning("Du skal vælge mindst én butik.")
-            
-        else:
-            with st.spinner("Vent venligst, programmet arbejder."):
+    if st.button("Find omsætning"):
+    if len(selected_stores) == 0:
+        st.warning("Du skal vælge mindst én butik.")
 
-                # login to optify
-                #login(username, password)
-                driver.get(url)
+    else:
+        with st.spinner("Vent venligst, programmet arbejder."):
 
-                if driver.current_url != url:
-                    # type ind email and password to login
-                    driver.find_element(by=By.NAME, value = 'username').send_keys(username)
-                    driver.find_element(by=By.NAME, value = 'password').send_keys(password + Keys.ENTER)
+            # login to optify
+            #login(username, password)
+            driver.get(url)
 
-                # relocate to orders when page is loaded
-                wait_for_loading(driver, "sidebar-nav")
-                st.write(driver.current_url)
-                #time.sleep(0.2)
+            if driver.current_url != url:
+                # type ind email and password to login
+                driver.find_element(by=By.NAME, value = 'username').send_keys(username)
+                driver.find_element(by=By.NAME, value = 'password').send_keys(password + Keys.ENTER)
 
-                #data = iterate_over_order_pages(selected_stores_letter, from_date, to_date)
-                #time.sleep(0.2)
-                
-                #find_turnover(data)
+            # relocate to orders when page is loaded
+            wait_for_loading(driver, "sidebar-nav")
+            st.write(driver.current_url)
+            #time.sleep(0.2)
 
-                #driver.quit()
+            #data = iterate_over_order_pages(selected_stores_letter, from_date, to_date)
+            #time.sleep(0.2)
+
+            #find_turnover(data)
+
+            #driver.quit()
             
     driver.quit()
     
