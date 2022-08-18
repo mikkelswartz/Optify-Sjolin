@@ -116,6 +116,8 @@ if __name__ == "__main__":
 
                 #data = iterate_over_order_pages(selected_stores_letter, from_date, to_date)
                 #time.sleep(0.2)
+                variables = list()
+                    
                 status = st.info("Danner overblik over ordre.")
 
                 data = pd.DataFrame(columns = ["ordernumber", 
