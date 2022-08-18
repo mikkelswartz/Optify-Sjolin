@@ -43,6 +43,17 @@ else:
 url = 'https://aarhus.sjolin.dk'
 
 
+def wait_for_loading(driver, class_name):
+    """ This function is a simpe use of expected_conditions WebDriverWait"""
+    try:
+        WebDriverWait(driver, 30).until(
+            EC.presence_of_element_located((By.CLASS_NAME, class_name))
+        )
+    except:
+        driver.quit()
+        print("driver quit: page " + str(driver.current_url) + "to slow to load.")
+        
+
 if __name__ == "__main__":
     
     col1, col2 = st.columns(2)
