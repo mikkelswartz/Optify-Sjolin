@@ -100,6 +100,7 @@ if __name__ == "__main__":
 
                 # relocate to orders when page is loaded
                 wait_for_loading(driver, "sidebar-nav")
+                st.write(driver.current_url)
                 #time.sleep(0.2)
 
                 #data = iterate_over_order_pages(selected_stores_letter, from_date, to_date)
